@@ -1,0 +1,72 @@
+PATH
+  remote: .
+  specs:
+    fluent-plugin-bwlist (0.1.0)
+      aws-sdk-s3 (~> 1.0)
+      fluentd (>= 0.14.10, < 2)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    aws-eventstream (1.0.1)
+    aws-partitions (1.97.0)
+    aws-sdk-core (3.24.0)
+      aws-eventstream (~> 1.0)
+      aws-partitions (~> 1.0)
+      aws-sigv4 (~> 1.0)
+      jmespath (~> 1.0)
+    aws-sdk-kms (1.7.0)
+      aws-sdk-core (~> 3)
+      aws-sigv4 (~> 1.0)
+    aws-sdk-s3 (1.17.0)
+      aws-sdk-core (~> 3, >= 3.21.2)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.0)
+    aws-sigv4 (1.0.3)
+    cool.io (1.5.3)
+    dig_rb (1.0.1)
+    fluentd (1.2.2)
+      cool.io (>= 1.4.5, < 2.0.0)
+      dig_rb (~> 1.0.0)
+      http_parser.rb (>= 0.5.1, < 0.7.0)
+      msgpack (>= 0.7.0, < 2.0.0)
+      serverengine (>= 2.0.4, < 3.0.0)
+      sigdump (~> 0.2.2)
+      strptime (>= 0.2.2, < 1.0.0)
+      tzinfo (~> 1.0)
+      tzinfo-data (~> 1.0)
+      yajl-ruby (~> 1.0)
+    http_parser.rb (0.6.0)
+    jmespath (1.4.0)
+    msgpack (1.2.4)
+    power_assert (1.1.1)
+    rake (12.3.0)
+    rr (1.2.1)
+    serverengine (2.0.6)
+      sigdump (~> 0.2.2)
+    sigdump (0.2.4)
+    strptime (0.2.3)
+    test-unit (3.2.7)
+      power_assert
+    test-unit-rr (1.0.5)
+      rr (>= 1.1.1)
+      test-unit (>= 2.5.2)
+    thread_safe (0.3.6)
+    tzinfo (1.2.5)
+      thread_safe (~> 0.1)
+    tzinfo-data (1.2018.5)
+      tzinfo (>= 1.0.0)
+    yajl-ruby (1.4.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.14)
+  fluent-plugin-bwlist!
+  rake (~> 12.0)
+  test-unit (~> 3.0)
+  test-unit-rr (~> 1.0.5)
+
+BUNDLED WITH
+   1.17.1
