@@ -1,8 +1,6 @@
 # fluent-plugin-bwlist
 
-[Fluentd](https://fluentd.org/) filter plugin to do something.
-
-TODO: write description for you plugin.
+fluent-plugin-bwlist is a record filter plugin using black/white list.
 
 ## Installation
 
@@ -26,15 +24,46 @@ And then execute:
 $ bundle
 ```
 
+## Example
+
+conf:
+
+```
+<filter **>
+  @type bwlist
+  s3_bucket sample-bucket-name
+  s3_key bwlist.txt
+  key id
+  mode black
+</filter>
+```
+
+list(Newline-delimited):
+
+```txt
+1
+3
+5
+...
+```
+
 ## Configuration
 
-You can generate configuration template:
+### s3_bucket (string) (required)
 
-```
-$ fluent-plugin-config-format filter bwlist
-```
+S3 bucket name
 
-You can copy and paste generated documents here.
+### s3_key (string) (required)
+
+S3 path
+
+### key (string) (required)
+
+filtering target key name
+
+### mode (enum) (optional)
+
+Select black/white filtering mode
 
 ## Copyright
 

@@ -15,12 +15,52 @@
 
 require "fluent/plugin/filter"
 
+require 'aws-sdk-s3'
+
 module Fluent
   module Plugin
-    class BwlistFilter < Fluent::Plugin::Filter
+    class BWlistFilter < Fluent::Plugin::Filter
       Fluent::Plugin.register_filter("bwlist", self)
 
+      config_param :key, :string,
+                   desc: "target key"
+
+      config_param :s3_bucket, :string,
+                   desc: 'config bucket'
+
+      config_param :s3_key, :string,
+                   desc: 'config key'
+
+      config_param :mode, :enum, list: [:black, :white], default: :black,
+                   desc: 'select mode black/white'
+
+      def configure(conf)
+        super
+
+        @mode_bool = conf['mode'] == 'black'
+      end
+
+      def start
+        super
+
+        @list = fetch_list(@s3_bucket, @s3_key)
+        log.info "filter_bwlist:: s3:#{@s3_bucket}/#{@s3_key} key:#{@key} list_size:#{@list.length}"
+        log.debug "filter_bwlist:: list:#{@list}"
+      end
+
       def filter(tag, time, record)
+        @list.include?(record[@key].to_s) ^ @mode_bool ? record : nil
+      rescue => e
+        log.warn "filter_bwlist: #{e.class} #{e.message} #{e.backtrace.first}"
+        log.debug "filter_bwlist:: tag:#{tag} time:#{time} record:#{record}"
+      end
+
+      private
+
+      def fetch_list(bucket, key)
+        s3_client = Aws::S3::Client.new
+        resp = s3_client.get_object(bucket: bucket, key: key)
+        resp.body.readlines(chomp: true)
       end
     end
   end
