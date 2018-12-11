@@ -7,9 +7,9 @@ Gem::Specification.new do |spec|
   spec.authors = ["kei_q"]
   spec.email   = ["keqh.keqh@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{bwlist}
+  spec.description   = %q{bwlist}
+  spec.homepage      = "https://github.com/kei-q/fluent-plugin-bwlist"
   spec.license       = "Apache-2.0"
 
   test_files, files  = `git ls-files -z`.split("\x0").partition do |f|
@@ -23,5 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.14"
   spec.add_development_dependency "rake", "~> 12.0"
   spec.add_development_dependency "test-unit", "~> 3.0"
+  spec.add_development_dependency "test-unit-rr", "~> 1.0.5"
   spec.add_runtime_dependency "fluentd", [">= 0.14.10", "< 2"]
+  spec.add_runtime_dependency "aws-sdk-s3", "~> 1.0"
 end
