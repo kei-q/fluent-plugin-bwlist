@@ -50,9 +50,10 @@ module Fluent
 
       def filter(tag, time, record)
         @list.include?(record[@key].to_s) ^ @mode_bool ? record : nil
+      # NOTE: explicit rescue
+      # If omit this code under filter chain optimization, cause unexpected record emittion
       rescue => e
-        log.warn "filter_bwlist: #{e.class} #{e.message} #{e.backtrace.first}"
-        log.debug "filter_bwlist:: tag:#{tag} time:#{time} record:#{record}"
+        filter.router.emit_error_event(tag, time, record, e)
       end
 
       private
