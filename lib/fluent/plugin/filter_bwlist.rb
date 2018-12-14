@@ -54,6 +54,7 @@ module Fluent
       # If omit this code under filter chain optimization, cause unexpected record emittion
       rescue => e
         filter.router.emit_error_event(tag, time, record, e)
+        nil
       end
 
       private
