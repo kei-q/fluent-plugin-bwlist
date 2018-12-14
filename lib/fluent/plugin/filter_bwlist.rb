@@ -31,13 +31,13 @@ module Fluent
       config_param :s3_key, :string,
                    desc: 'config key'
 
-      config_param :mode, :enum, list: [:black, :white], default: :black,
-                   desc: 'select mode black/white'
+      config_param :mode, :enum, list: [:blacklist, :whitelist], default: :blacklist,
+                   desc: 'select mode blacklist/whitelist'
 
       def configure(conf)
         super
 
-        @mode_bool = conf['mode'] == 'black'
+        @mode_bool = conf['mode'] == 'blacklist'
       end
 
       def start

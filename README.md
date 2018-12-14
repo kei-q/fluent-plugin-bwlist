@@ -34,7 +34,7 @@ conf:
   s3_bucket sample-bucket-name
   s3_key bwlist.txt
   key id
-  mode black
+  mode blacklist
 </filter>
 ```
 

@@ -10,12 +10,12 @@ class BWlistFilterTest < Test::Unit::TestCase
     Fluent::Test.setup
   end
 
-  test "bwlist" do
+  test "blacklist" do
     d = create_driver %[
       s3_bucket dummy-bucket
       s3_key list.txt
       key target_id
-      mode black
+      mode blacklist
     ]
 
     d.run do
@@ -33,7 +33,7 @@ class BWlistFilterTest < Test::Unit::TestCase
       s3_bucket dummy-bucket
       s3_key list.txt
       key target_id
-      mode white
+      mode whitelist
     ]
 
     d.run do
