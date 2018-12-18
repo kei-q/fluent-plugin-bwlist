@@ -62,7 +62,7 @@ module Fluent
       def fetch_list(bucket, key)
         s3_client = Aws::S3::Client.new
         resp = s3_client.get_object(bucket: bucket, key: key)
-        resp.body.readlines(chomp: true)
+        resp.body.set_encoding('UTF-8', 'UTF-8').readlines(chomp: true)
       end
     end
   end
