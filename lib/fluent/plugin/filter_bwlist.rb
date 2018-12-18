@@ -44,11 +44,14 @@ module Fluent
         super
 
         @list = fetch_list(@s3_bucket, @s3_key)
+        log.debug "filter_bwlist:: list_encoding:#{@list.map(&:encoding)}"
         log.info "filter_bwlist:: s3:#{@s3_bucket}/#{@s3_key} key:#{@key} list_size:#{@list.length}"
         log.debug "filter_bwlist:: list:#{@list}"
       end
 
       def filter(tag, time, record)
+        log.debug "filter_bwlist:: record:#{record[@key].to_s} record_encoding:#{record[@key].encoding}"
+        log.debug "filter_bwlist:: check:#{@list.include?(record[@key].to_s)}"
         @list.include?(record[@key].to_s) ^ @mode_bool ? record : nil
       # NOTE: explicit rescue
       # If omit this code under filter chain optimization, cause unexpected record emittion
@@ -60,9 +63,10 @@ module Fluent
       private
 
       def fetch_list(bucket, key)
+        # return File.readlines('./testfile.txt', chomp:true, encoding: 'UTF-8:UTF-8')
         s3_client = Aws::S3::Client.new
         resp = s3_client.get_object(bucket: bucket, key: key)
-        resp.body.readlines(chomp: true)
+        resp.body.set_encoding('UTF-8', 'UTF-8').readlines(chomp: true)
       end
     end
   end
